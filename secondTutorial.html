@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Teste AngularJS</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/plugin/awesome-bootstrap-checkbox/bower_components/Font-Awesome/css/font-awesome.css"/>
+    <link rel="stylesheet" href="../assets/plugin/awesome-bootstrap-checkbox/demo/build.css"/>
+
+    <script src="js/angular.js"></script>
+    <script src="js/secondApp.js"></script>
+
+    <style type="text/css">
+        .myList{
+            margin-top: 0px;
+            margin-bottom: 0px;
+        }
+
+        .myLabel{
+            font-size: 10px;
+            font-weight: normal;
+        }
+
+        .completed {
+            text-decoration: line-through;
+            color: grey;
+            opacity: .3;
+        }
+
+        .completedHour{ opacity: .3; }
+    </style>
+</head>
+
+<body ng-app="angularApp">
+    <div class="container">
+        <h1 class="text-center">Todolist com angularJS</h1>
+        <hr />
+        <div class="col-md-12" ng-controller="TodoListController as todoList">
+            <span>{{todoList.remaining()}} de {{todoList.todos.length}} Tarefas</span> [ <a href="" ng-click="todoList.archive()">Arquivar finalizadas</a> ]
+            <ul class="list-group">
+                <li class="list-group-item" ng-repeat="todo in todoList.todos">
+                    <div class="myList checkbox checkbox-info checkbox-circle">
+                        <input id="checkbox-{{todo.id}}" type="checkbox">
+                        <label for="checkbox-{{todo.id}}" ng-click="todo.done = !todo.done" ng-class="{'completed': todo.done}" class="col-md-10">{{todo.text}}</label>
+                        <small class="label label-info myLabel" ng-class="{'completedHour': todo.done}"><i class="fa fa-clock-o"></i> {{todo.datetime}}</small>
+                    </div>
+                </li>
+            </ul>
+            <form name="myForm" ng-submit="todoList.addTodo()">
+                <div class="col-md-11" style="padding-left: 0px;">
+                    <input class="form-control" type="text" ng-model="todoList.todoText" placeholder="Adicionar uma nova tarefa">
+                </div>
+                <div class="col-md-1 text-right" style="padding-right: 0px;">
+                    <input class="btn btn-primary" type="submit" ng-disabled="myForm.$invalid" value="add">
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
